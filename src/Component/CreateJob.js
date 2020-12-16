@@ -10,13 +10,15 @@ function CreateJob(){
             title: title,
             description: description,
             location : location
-        })
-            .then(data => {
+        }).then(data => {
+              setTimeout(()=>{
+               window.location = '/recuirterDashboard'
+              }, 2000)
               console.log(data); 
         });
     }
     async function postData(url = '', data = {}) {
-        console.log(data);
+      const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
         const response = await fetch(url, {
           method: 'POST', 
           mode: 'cors', 
@@ -24,7 +26,7 @@ function CreateJob(){
           credentials: 'same-origin', 
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InNodWJoYW0wMTFAZ21haWwuY29tIiwibmFtZSI6InNodWJoYW0iLCJza2lsbHMiOiJoYWFhYSwgYWFhIiwidXNlclJvbGUiOjAsImNyZWF0ZWRBdCI6IjIwMjAtMTItMTZUMDI6NTg6MTcuMDAwWiIsInVwZGF0ZWRBdCI6IjIwMjAtMTItMTZUMDI6NTg6MTcuMDAwWiIsImlkIjoiMTJmMzFjMjktZjMwYi00Yzc1LTkxMzItMGE0MzgwMGNjMzg0IiwiaWF0IjoxNjA4MDkwMjIwfQ.9mBrq0iTh0Yr7IAj6t0brA5NVpiMOCVrH4WjXu225Nw" 
+            'Authorization':  datafromLocalstorage.token
           },
           redirect: 'follow', 
           referrerPolicy: 'no-referrer',
@@ -49,6 +51,5 @@ function CreateJob(){
         <button class="submit" onClick={handledata}>Submit</button> 
        </div>
     ) 
-
 }
 export default CreateJob
