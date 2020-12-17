@@ -5,6 +5,8 @@ function CreateJob(){
     const [title, settitle] = useState(false);
     const [des, setdes] = useState(false);
     const [locat, setlocat] = useState(false);
+    const [loader, setloader] = useState(true);
+
     const checktitle = (title)=>{
       if((title.length>=0 && title.length<3 )|| title.length>100){
         settitle(true)
@@ -36,15 +38,20 @@ function CreateJob(){
         const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
         if(checktitle(title) && checkDes(description)
            && checklocation(location) && datafromLocalstorage && datafromLocalstorage.userRole===0){
-          postData('https://jobs-api.squareboat.info/api/v1/jobs/', {
+            setloader(false);
+            postData('https://jobs-api.squareboat.info/api/v1/jobs/', {
             title: title,
             description: description,
             location : location
         }, datafromLocalstorage.token).then(data => {
-              // setTimeout(()=>{
-              //  window.location = '/recuirterDashboard'
-              // }, 2000)
-              console.log(data); 
+              if(data.data){
+               setloader(true);
+               window.location = '/recuirterDashboard'
+
+              }else{
+                 alert('something wrong')
+              }
+              console.log(data);
         });
         }
         
@@ -86,6 +93,7 @@ function CreateJob(){
         {locat?<span class="errorfield">Location should be greater than or equal to 3</span>:<span></span>}
         <br/>
         <button class="submit" onClick={handledata}>Submit</button> 
+        <div class="loader" style={{display : loader ? 'none' : 'block'}}></div>
        </div>
     ) 
 }

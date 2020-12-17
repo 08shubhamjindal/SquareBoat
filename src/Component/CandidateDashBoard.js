@@ -55,7 +55,7 @@ function CandidateDashBoard(){
               <br/>
               <div class="allJobCard">
               {planets.map((d, index)=>{
-                return <CandidateJobCard data= {d} key={index}/>
+                return <CandidateJobCard data= {d} appliedORAll = {appliedORAll} key={index}/>
               })}
              </div>
         </div>

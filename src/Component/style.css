@@ -25,6 +25,11 @@ body{
   margin: 4px 2px;
   cursor: pointer;
 }
+#getStartedButton:hover, .submit:hover{
+    border: #3498db solid 1px;
+    background:#fff;
+    color: black;
+}
 .loginSignUp{
     background-color: #303F60;
     border: 1px solid #43AFFF;
@@ -37,6 +42,9 @@ body{
     margin-right: 2%;
     margin-top: 2%;
     cursor: pointer;
+}
+.loginSignUp:hover{
+    background-color: #43AFFF;
 }
 .headingText{
    height: 10%;
@@ -126,7 +134,8 @@ label{
     transition: 0.3s;
     width: 15%;
     margin: 1%;
-    background-color: #A9AFBC;
+    background-color: white;
+    color: black;
     display: flex;
     flex-direction: column;
 }
@@ -139,8 +148,12 @@ label{
   float: left;
   margin-left: 0%;
 }
+.jobCard >span{
+    font-size: 0.8rem;
+}
 #viewApplication{
   font-family: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
+  cursor: pointer;
   background-color: #EDF6FF;
   border: 1px solid gray-light;
   color: gray-dark;
@@ -151,6 +164,9 @@ label{
   margin: 10%;
   float: center;
   bottom:0;
+}
+#viewApplication:hover{
+    background-color: #43AFFF;
 }
 .logout{
     padding: 12px 25px;
@@ -163,6 +179,10 @@ label{
     margin-right: 2%;
     border: none;
     cursor: pointer;
+}
+.logout:hover{
+    border: #3498db solid 1px;
+    background:#fff;
 }
 .appliedORAll{
     padding: 12px 25px;
@@ -181,14 +201,14 @@ label{
 .modal {
     position: fixed; 
     z-index: 1;
-    padding-top: 100px; 
     left: 0;
     top: 0;
-    width: 100%; 
+    width: 50%; 
     height: 100%; 
+    margin-top: 15%;
+    margin-left: 25%;
     overflow: auto; 
-    background-color: rgb(0,0,0); 
-    background-color: rgba(0,0,0,0.4); 
+    color: black;
   }
   
   .modal-content {
@@ -225,4 +245,15 @@ label{
   @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+  }
+  .candWhoApplied{
+      display:  flex;
+      flex-wrap: wrap;
+  }
+  .applictioncard{
+      width: 30% !important;
+  }
+  #applicantsLine{
+      margin: 0%;
+      border-bottom: 1px solid black;
   }

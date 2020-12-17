@@ -81,15 +81,16 @@ function RecuirterDashBoard(){
                 return <RecuirteJobCards data= {d} key={index} handleViewApplication = {handleViewApplication}/>
               })}
          </div>
-         <div id="myModal" class="modal" style={{ display : isModelshow ? 'none' : 'block'}}>
+         <div class="modal" style={{ display : isModelshow ? 'none' : 'block'}}>
          <div class="modal-content">
          <span class="close" onClick={closeModel}>&times;</span>
-         <div>
+         <p id="applicantsLine">Applicants for this Job</p>
+         <br/>
+         <div class="candWhoApplied">
           {allCandidateApplyOnParticularJob.map((d, index)=>{
             return <CandidateWHoAppliedforRecuriter data= {d} key={index}/>
           })}
-          </div>
-
+        </div>
          </div>
          </div>
          </div>

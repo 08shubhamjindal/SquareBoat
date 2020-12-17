@@ -9,7 +9,7 @@ function RecuirteJobCards(props){
         <div class="jobCard"> 
              <h4>{props.data.title}</h4>
              <p>{props.data.description}</p>
-             <span>{props.data.location}
+             <span><i className="fas fa-map-marker"></i> {props.data.location}
              <button id= "viewApplication" onClick={()=>handleViewApplication(props.data.id)}>View Application</button>
              </span>
        </div>
