@@ -6,7 +6,7 @@ function Login(){
     const [redirect, setredirect] = useState();
     const [email, setemail] = useState(false);
     const [createPassword, setcreatePassword] = useState(false);
-
+    const [loader, setloader] = useState(true);
     const checkEmail = (email)=>{
       const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       if(re.test(String(email).toLowerCase())){
@@ -30,12 +30,13 @@ function Login(){
         const  email = document.getElementById("email").value;
         const  password = document.getElementById("pwd").value;
         if(checkEmail(email) && checkpassword(password)){
-          postData('https://jobs-api.squareboat.info/api/v1/auth/login', {
+            setloader(false);
+            postData('https://jobs-api.squareboat.info/api/v1/auth/login', {
             email: email,
             password: password
         }).then(data => {
               setLogindata(data);
-              console.log(data);
+              setloader(true);
               if(data.data.userRole===1){
                 localStorage.setItem('user', JSON.stringify(data.data));
                 setredirect(<Redirect to='/candidateDashboard'/>)
@@ -73,6 +74,7 @@ function Login(){
         <br/>
         {email?<span class="errorfield">Email not in correct format</span>:<span></span>}
         <br/>
+        
         <label for="pwd">Password:</label>
         <br/>
         <input type="password" id="pwd" name="pwd"/>
@@ -81,6 +83,7 @@ function Login(){
         <button class="submit" onClick={handledata}>Submit</button> 
         <p id="cardEndText">New to MyJobs? <span><Link id="newtoJobs" to="/signUp">Create an Account</Link></span></p>
         {redirect}
+        <div class="loader" style={{display : loader ? 'none' : 'block'}}></div>
         </div>
     )
 }

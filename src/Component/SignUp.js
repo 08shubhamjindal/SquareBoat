@@ -10,6 +10,7 @@ function SignUp(){
     const [confirmPassword, setconfirmPassword] = useState(false);
     const [checkPassword, setcheckPassword] = useState(false);
     const [skills, setskills] = useState(false);
+    const [loader, setloader] = useState(true);
 
     const candidate = ()=>{
         document.getElementById("candidate").style.backgroundColor = "#43AFFF";
@@ -57,6 +58,8 @@ function SignUp(){
       }
     }
     const checkpassword = (password, checkpassword)=>{
+      console.log(password);
+      console.log(checkpassword);
         if(password.length>=0 && password.length<6){
           setcreatePassword(true)
           return false;
@@ -68,7 +71,7 @@ function SignUp(){
           setconfirmPassword(false);
           setcheckPassword(true);
           return false;
-        }else if(password===confirmPassword){
+        }else{
           setcreatePassword(false);
           setconfirmPassword(false);
           setcheckPassword(false);
@@ -84,6 +87,7 @@ function SignUp(){
         const  userRole = isCandidateORRecuirter;
 
         if(checkEmail(email) && checkName(name) && checkpassword(password, confirmPassword) && checkSkills(skills)){
+          setloader(false);
           postData('https://jobs-api.squareboat.info/api/v1/auth/register', {
             email: email,
             userRole: userRole, 
@@ -92,14 +96,20 @@ function SignUp(){
             name: name,
             skills: skills
         }).then(data => {
-              console.log(data);
-              <Redirect to= '/login' />
+              setloader(true);
+              if(data.data){
+                window.location = '/login'
+                window.alert('sucessfully registered')
+              }else{
+                window.alert('already register')
+              }
+        }).catch(err =>{
+          console.log('hereeeeeee')
         });
         }
         
     }
     async function postData(url = '', data = {}) {
-        console.log(data);
         const response = await fetch(url, {
           method: 'POST', 
           mode: 'cors', 
@@ -158,6 +168,7 @@ function SignUp(){
         <br/>
         <button class="submit" onClick = {handledata}>Submit</button> 
         <p class= "cardEndText">Have an Account? <span><Link id="newtoJobs" to="/login">Login</Link></span></p>
+        <div class="loader" style={{display : loader ? 'none' : 'block'}}></div>
        </div>
     )
 }

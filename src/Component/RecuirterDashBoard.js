@@ -54,6 +54,13 @@ function RecuirterDashBoard(){
     const closeModel = ()=>{
         setisModelshow(true);
     }
+    const logOut = ()=>{
+      setTimeout(()=>{
+        localStorage.clear();
+        window.location = '/'
+      }, 2000);
+
+    }
     useEffect(() => {
       const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
         if(datafromLocalstorage && datafromLocalstorage.userRole===0){
@@ -66,6 +73,7 @@ function RecuirterDashBoard(){
     return(
          <div>
          <div class="upper">
+         <button class='logout' onClick={logOut}>Logout</button>
          <Link className="loginSignUp" to="/createJob">Post a Job</Link>
          <br/>
          <div class="allJobCard">

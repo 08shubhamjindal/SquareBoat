@@ -33,15 +33,24 @@ function CandidateDashBoard(){
     }, []);
 
     const getAppliedorAll = ()=>{
+      const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
         if(appliedORAll===false){
-            fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs/applied');
+            fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs/applied', datafromLocalstorage.token);
         }else{
-            fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs');
+            fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs', datafromLocalstorage.token);
         }
+    }
+    const logOut = ()=>{
+      setTimeout(()=>{
+        localStorage.clear();
+        window.location = '/'
+      }, 2000);
+
     }
     return(
         <div>
               <span class="headingText">MyJobs</span>
+              <button class='logout' onClick={logOut}>Logout</button>
               <button class='appliedORAll' onClick={getAppliedorAll}>{appliedORAll ?'All Jobs': 'Applied Jobs'}</button>
               <br/>
               <div class="allJobCard">
