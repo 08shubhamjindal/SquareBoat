@@ -4,11 +4,11 @@ import CandidateJobCard from './CandidateJobCard';
 function CandidateDashBoard(){
     const [planets, setPlanets] = useState([]);
     const [appliedORAll, setappliedORAll] = useState(true);
-     function fetchData(url = '',) {
+     function fetchData(url = '', token) {
         const myHeaders = new Headers();
-        const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
+        
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('Authorization', datafromLocalstorage.token);
+        myHeaders.append('Authorization', token);
         
        fetch(url, {
         method: 'GET',
@@ -24,8 +24,14 @@ function CandidateDashBoard(){
     }
 
     useEffect(() => {
-        fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs');
+        const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
+        if(datafromLocalstorage && datafromLocalstorage.userRole===1){
+          fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs', datafromLocalstorage.token);
+        }else{
+          window.location = '/'
+        }
     }, []);
+
     const getAppliedorAll = ()=>{
         if(appliedORAll===false){
             fetchData('https://jobs-api.squareboat.info/api/v1/candidates/jobs/applied');
@@ -35,15 +41,14 @@ function CandidateDashBoard(){
     }
     return(
         <div>
-         <div class="upper">
               <span class="headingText">MyJobs</span>
               <button class='appliedORAll' onClick={getAppliedorAll}>{appliedORAll ?'All Jobs': 'Applied Jobs'}</button>
+              <br/>
               <div class="allJobCard">
               {planets.map((d, index)=>{
                 return <CandidateJobCard data= {d} key={index}/>
               })}
              </div>
-         </div>
         </div>
     )
 }

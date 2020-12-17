@@ -33,7 +33,7 @@ function CandidateJobCard(props){
              <h4>{props.data.title}</h4>
              <p>{props.data.description}</p>
              <span>{props.data.location}</span>
-             <button onClick={()=> handleApply(props.data.id)}>Apply</button>
+             <button id= "viewApplication" onClick={()=> handleApply(props.data.id)}>Apply</button>
        </div>
     )
 }

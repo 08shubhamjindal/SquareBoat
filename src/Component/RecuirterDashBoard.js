@@ -10,11 +10,10 @@ function RecuirterDashBoard(){
     const [allCandidateApplyOnParticularJob, setallCandidateApplyOnParticularJob] = useState([]);
     const [isModelshow, setisModelshow] = useState(true);
 
-    function fetchData(url = '',) {
+    function fetchData(url = '', token) {
         const myHeaders = new Headers();
-        const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
         myHeaders.append('Content-Type', 'application/json');
-        myHeaders.append('Authorization', datafromLocalstorage.token);
+        myHeaders.append('Authorization', token);
         
        fetch(url, {
         method: 'GET',
@@ -56,7 +55,12 @@ function RecuirterDashBoard(){
         setisModelshow(true);
     }
     useEffect(() => {
-        fetchData('https://jobs-api.squareboat.info/api/v1/recruiters/jobs');
+      const datafromLocalstorage = JSON.parse(localStorage.getItem('user'));
+        if(datafromLocalstorage && datafromLocalstorage.userRole===0){
+          fetchData('https://jobs-api.squareboat.info/api/v1/recruiters/jobs', datafromLocalstorage.token);
+        }else{
+          window.location = '/'
+        }
     }, []);
 
     return(
@@ -74,7 +78,7 @@ function RecuirterDashBoard(){
          <span class="close" onClick={closeModel}>&times;</span>
          <div>
           {allCandidateApplyOnParticularJob.map((d, index)=>{
-                return <CandidateWHoAppliedforRecuriter data= {d} key={index}/>
+            return <CandidateWHoAppliedforRecuriter data= {d} key={index}/>
           })}
           </div>
 
