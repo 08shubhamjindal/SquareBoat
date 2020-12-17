@@ -74,8 +74,8 @@ function Login(){
         <br/>
         {email?<span class="errorfield">Email not in correct format</span>:<span></span>}
         <br/>
-        
         <label for="pwd">Password:</label>
+        <span><Link id="forgetPassword" to="/forgetPassword">Forget your Password</Link></span>
         <br/>
         <input type="password" id="pwd" name="pwd"/>
         {createPassword?<span class="errorfield">Password should be greater than or equal to 6</span>:<span></span>}

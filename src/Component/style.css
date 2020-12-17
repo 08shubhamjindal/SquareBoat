@@ -257,3 +257,14 @@ label{
       margin: 0%;
       border-bottom: 1px solid black;
   }
+#forgetPassword{
+    color: #43AFFF;
+    text-decoration: none;
+    font-size: 80%;
+    float: right;
+}
+#forgetpasswordcontent{
+    font-size: 80%;
+    float: left;
+    margin: 0%;
+}
